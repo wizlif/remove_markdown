@@ -28,14 +28,14 @@ List of currently supported markdown bits
 
 Feature | Supported | Tested
 ---|---|---
-Paragraphs | [x] | [x]
-Links | [x] | [x]
-Images | [x] | [x]
-Lists | [x] | [x]
-Code blocks | [x] | [x]
-Inline code | [x] | [x]
-Emphasis | [x] | [x]
-Headers | [x] | [x]
-HTML Tags | [x] | [ ]
-Tables | [ ] | [ ]
+Paragraphs | &#9745; | &#9745;
+Links | &#9745; | &#9745;
+Images | &#9745; | &#9745;
+Lists | &#9745; | &#9745;
+Code blocks | &#9745; | &#9745;
+Inline code | &#9745; | &#9745;
+Emphasis | &#9745; | &#9745;
+Headers | &#9745; | &#9745;
+HTML Tags | &#9745; | &#x2612;
+Tables | &#x2612; | &#x2612;
 
