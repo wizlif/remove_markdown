@@ -39,3 +39,8 @@ Headers | &#9745; | &#9745;
 HTML Tags | &#9745; | &#x2612;
 Tables | &#x2612; | &#x2612;
 
+## Example previews
+
+| | | |
+|--|--|--|
+![01](screenshots/01.png) | ![02](screenshots/02.png) | ![03](screenshots/03.png)
