@@ -1,0 +1,34 @@
+# ==================================================
+# This is the main worflow for testing and analyzing
+# the code.
+# ==================================================
+
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: 
+      - master
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch code from repository
+        uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.1
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed .
+      - run: dart analyze
+      - run: dart test --coverage=./coverage
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          verbose: true
+          fail_ci_if_error: true
+          file: ./coverage/lcov.info

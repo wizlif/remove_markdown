@@ -1,0 +1,31 @@
+name: Create release tag with push
+
+on:
+  push:
+    branches:
+      - 'releases/**'
+
+jobs:
+    create-tag:
+        if: github.event.created
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_SHORT_REF: ${{ github.ref_name }}
+        steps:
+            - name: Extract version to step variable
+              id: get_version
+              run: |
+                echo "RELEASE_VERSION=$(
+                    echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
+                    )" >> $GITHUB_OUTPUT
+            - name: Create tag
+              uses: actions/github-script@v6
+              with:
+                github-token: ${{ secrets.ACCESS_TOKEN }}
+                script: |
+                    github.rest.git.createRef({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        ref: 'refs/tags/${{steps.get_version.outputs.RELEASE_VERSION}}',
+                        sha: context.sha
+                    })
