@@ -27,9 +27,15 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed .
       - run: dart analyze
       - run: dart test --coverage=./coverage
+      - name: Get code coverage files
+        id: get_codecov_files
+        run: |
+          echo "CODECOV_FILES=$(
+            find . -name 'lcov.info' -print0 | tr '\0' , | sed 's/,$//'
+          )" >> $GITHUB_OUTPUT
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
           verbose: true
           fail_ci_if_error: true
-          file: ./coverage/lcov.info
+          file: ${{ steps.get_codecov_files.outputs.CODECOV_FILES }}
