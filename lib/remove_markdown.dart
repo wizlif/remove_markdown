@@ -30,7 +30,9 @@ extension RemoveMarkdown on String {
     bool abbr = true,
   }) {
     var output = replaceAll(
-        RegExp(r'^(-\s*?|\*\s*?|_\s*?){3,}\s*', multiLine: true), '');
+      RegExp(r'^(-\s*?|\*\s*?|_\s*?){3,}\s*', multiLine: true),
+      '',
+    );
 
     if (stripListLeaders) {
       if (listUnicodeChar != null) {

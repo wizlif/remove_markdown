@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:remove_markdown/remove_markdown.dart';
+import 'package:test/test.dart';
 
 import 'cases.dart';
 
