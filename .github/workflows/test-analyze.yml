@@ -26,16 +26,14 @@ jobs:
       - run: dart pub get
       - run: dart format --output=none --set-exit-if-changed .
       - run: dart analyze
-      - run: dart test --coverage=./coverage
-      - name: Get code coverage files
-        id: get_codecov_files
+      - name: Run test and generate coverrage
         run: |
-          echo "CODECOV_FILES=$(
-            find . -name 'lcov.info' -print0 | tr '\0' , | sed 's/,$//'
-          )" >> $GITHUB_OUTPUT
+          dart test --coverage=./coverage
+          dart pub global activate coverage
+          dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -o ./coverage/lcov.info -i ./coverage
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
           verbose: true
           fail_ci_if_error: true
-          file: ${{ steps.get_codecov_files.outputs.CODECOV_FILES }}
+          file: ./coverage/lcov.info
