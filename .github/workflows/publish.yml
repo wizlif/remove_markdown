@@ -22,8 +22,10 @@ jobs:
               echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
               )"
       - name: Update version
+        env:
+          TAG: ${{steps.get_version.outputs.RELEASE_VERSION}}
         run: |
-          sed -i 's|version:.*|version: '"${${{steps.get_version.outputs.RELEASE_VERSION}}:1}"'|g' pubspec.yaml
+          sed -i 's|version:.*|version: '"${TAG:1}"'|g' pubspec.yaml
       # Setup Dart SDK with JWT token
       - uses: dart-lang/setup-dart@v1
         with:
