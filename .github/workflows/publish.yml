@@ -15,6 +15,15 @@ jobs:
     steps:
       # Checkout repository
       - uses: actions/checkout@v3
+      - name: Extract version to step variable
+        id: get_version
+        run: |
+          echo "RELEASE_VERSION=$(
+              echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
+              )"
+      - name: Update version
+        run: |
+          sed -i 's|version:.*|version: '"${${{steps.get_version.outputs.RELEASE_VERSION}}:1}"'|g' pubspec.yaml
       # Setup Dart SDK with JWT token
       - uses: dart-lang/setup-dart@v1
         with:
