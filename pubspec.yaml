@@ -1,5 +1,5 @@
 name: remove_markdown
-description: Markdown removal from string.
+description: Strip markdown from markdown formatted string.
 version: 0.0.1
 homepage: https://github.com/wizlif/remove_markdown
 
