@@ -11,21 +11,13 @@ jobs:
     environment: production
     permissions:
       id-token: write
-    env:
-      GITHUB_SHORT_REF: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     steps:
       # Checkout repository
       - uses: actions/checkout@v3
-      - name: Extract version to step variable
-        id: get_version
-        run: |
-          echo "RELEASE_VERSION=$(
-              echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
-              )"
       - name: Update version
         env:
-          TAG: ${{steps.get_version.outputs.RELEASE_VERSION}}
+          TAG: ${{ github.ref_name }}
         run: |
           sed -i 's|version:.*|version: '"${TAG:1}"'|g' pubspec.yaml
       # Setup Dart SDK with JWT token
