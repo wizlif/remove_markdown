@@ -10,7 +10,9 @@ jobs:
     name: 'Publish to pub.dev'
     environment: production
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write
+    env:
+      GITHUB_SHORT_REF: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     steps:
       # Checkout repository
