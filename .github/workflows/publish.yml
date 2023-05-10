@@ -7,6 +7,22 @@ on:
 
 jobs:
   publish:
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      environment: 'production'
+    name: 'Publish to pub.dev'
+    environment: production
+    permissions:
+      id-token: write # This is required for requesting the JWT
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v3
+      # Setup Dart SDK with JWT token
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.1
+      # Minimal package setup and dry run checks.
+      - name: Install dependencies
+        run: dart pub get
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
+      - name: Publish to pub.dev
+        run: dart pub publish -f
