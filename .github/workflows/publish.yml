@@ -1,4 +1,4 @@
-name: Echo release tag
+name: Release to pub.dev
 
 on:
   push:
